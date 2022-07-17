@@ -5,8 +5,8 @@ import './App.css';
 import reducer, { generateGrid } from './reducer';
 
 function App() {
-  const [grid, dispatch] = useReducer(reducer,  generateGrid());
-
+  const [grid, dispatch] = useReducer(reducer, generateGrid());
+  const nextGeneration = () => dispatch({ type: 'NEXT_GENERATION' });
   const toggleCell = (row: number, column: number) =>
     dispatch({ type: 'TOGGLE_CELL', payload: { row, column } });
   const reset = () => dispatch({ type: 'RESET' });
@@ -32,6 +32,7 @@ function App() {
       })}
 
       <button onClick={reset}>Reset</button>
+      <button onClick={nextGeneration}>Next generation</button>
     </>
   );
 }

@@ -28,7 +28,10 @@ export const getNeighbours = ({
   operations.forEach(([x, y]) => {
     let rows = x + row;
     let cols = y + column;
-    neighbours += grid[rows][cols];
+
+    if (rows >= 0 && rows < grid.length && cols >= 0 && cols < grid.length) {
+      neighbours += grid[rows][cols];
+    }
   });
   return neighbours;
 };
@@ -48,8 +51,25 @@ const reducer = (grid: Grid, action: Action | null) => {
     case 'RESET':
       return generateGrid(grid.length);
 
+    case 'NEXT_GENERATION': {
+      const newGrid = [...grid];
+      for (let row = 0; row < grid.length; row++) {
+        for (let column = 0; column < grid.length; column++) {
+          const neighbours = getNeighbours({
+            row,
+            column,
+            grid,
+          });
+          
+          if (neighbours < 2) {
+            newGrid[row][column] = 0;
+          }
+        }
+      }
+      return newGrid;
+    }
     default:
-      throw new Error(`Unhandled action type: ${action.type}`);
+      throw new Error(`Unhandled action type: ${action}`);
   }
 };
 
