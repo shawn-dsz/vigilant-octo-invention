@@ -1,25 +1,25 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import cn from 'classnames';
 
 import './App.css';
 
-const numberOfRows = 6;
-const numberOfColumns = 6;
+type Grid = number[][];
+export const generateGrid = (size = 6): Grid =>
+  Array.from({ length: size }, () => Array.from({ length: size }, () => 0));
 
-const generateGrid = () =>
-  Array.from({ length: numberOfRows }, () =>
-    Array.from({ length: numberOfColumns }, () => 0)
-  );
+export const reducer = (grid: Grid, action?: unknown) => {
+  return grid;
+};
 
 function App() {
-  const [grid] = useState(generateGrid);
+  const [grid] = useReducer(reducer, generateGrid());
 
   return (
     <>
-      {grid.map((row, rowIndex) => {
+      {grid.map((rows: number[], rowIndex: number) => {
         return (
           <div className="row">
-            {row.map((_, columnIndex) => {
+            {rows.map((_, columnIndex: number) => {
               return (
                 <div
                   className={cn('cell', {
