@@ -22,7 +22,7 @@ function App() {
             {row.map((_, columnIndex) => {
               return (
                 <div
-                  className={cn('cell flex', {
+                  className={cn('cell', {
                     alive: grid[rowIndex][columnIndex] === 1,
                   })}
                   key={`${rowIndex}-${columnIndex}`}
