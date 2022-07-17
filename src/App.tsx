@@ -9,6 +9,7 @@ function App() {
 
   const toggleCell = (row: number, column: number) =>
     dispatch({ type: 'TOGGLE_CELL', payload: { row, column } });
+  const reset = () => dispatch({ type: 'RESET' });
 
   return (
     <>
@@ -29,6 +30,8 @@ function App() {
           </div>
         );
       })}
+
+      <button onClick={reset}>Reset</button>
     </>
   );
 }

@@ -48,3 +48,23 @@ test('should calculate neighbours', () => {
     })
   ).toEqual(2);
 });
+
+test('should reset grid', () => {
+  expect(
+    reducer(
+      [
+        [0, 0, 0],
+        [0, 0, 1],
+        [0, 0, 1],
+      ],
+      {
+        type: 'RESET',
+      }
+    )
+  ).toEqual([
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ]);
+
+});
