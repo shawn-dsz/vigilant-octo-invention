@@ -2,26 +2,23 @@ import { useReducer } from 'react';
 import cn from 'classnames';
 
 import './App.css';
-
-type Grid = number[][];
-export const generateGrid = (size = 6): Grid =>
-  Array.from({ length: size }, () => Array.from({ length: size }, () => 0));
-
-export const reducer = (grid: Grid, action?: unknown) => {
-  return grid;
-};
+import reducer, { generateGrid } from './reducer';
 
 function App() {
-  const [grid] = useReducer(reducer, generateGrid());
+  const [grid, dispatch] = useReducer(reducer,  generateGrid());
+
+  const toggleCell = (row: number, column: number) =>
+    dispatch({ type: 'TOGGLE_CELL', payload: { row, column } });
 
   return (
     <>
       {grid.map((rows: number[], rowIndex: number) => {
         return (
-          <div className="row">
+          <div className="row" key={rowIndex}>
             {rows.map((_, columnIndex: number) => {
               return (
                 <div
+                  onClick={() => toggleCell(rowIndex, columnIndex)}
                   className={cn('cell', {
                     alive: grid[rowIndex][columnIndex] === 1,
                   })}
