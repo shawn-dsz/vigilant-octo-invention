@@ -2,6 +2,36 @@ type Grid = number[][];
 export const generateGrid = (size = 6): Grid =>
   Array.from({ length: size }, () => Array.from({ length: size }, () => 0));
 
+const operations = [
+  [0, 1],
+  [0, -1],
+  [1, -1],
+  [-1, -1],
+  [1, 1],
+  [-1, 1],
+  [1, 0],
+  [-1, 0],
+];
+
+export const getNeighbours = ({
+  row,
+  column,
+  grid,
+}: {
+  row: number;
+  column: number;
+  grid: Grid;
+}): number => {
+  let neighbours = 0;
+
+  operations.forEach(([x, y]) => {
+    let rows = x + row;
+    let cols = y + column;
+    neighbours += grid[rows][cols];
+  });
+  return neighbours;
+};
+
 type Action = {
   type: 'TOGGLE_CELL';
   payload: {

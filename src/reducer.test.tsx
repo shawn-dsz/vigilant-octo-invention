@@ -1,4 +1,4 @@
-import reducer, { generateGrid } from './reducer';
+import reducer, { generateGrid, getNeighbours } from './reducer';
 
 const emptyGrid = [
   [0, 0, 0, 0, 0, 0],
@@ -30,4 +30,21 @@ test('should toggle cell state', () => {
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
   ]);
+});
+
+test('should calculate neighbours', () => {
+  expect(
+    getNeighbours({
+      row: 1,
+      column: 2,
+      grid: [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0],
+        [0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ],
+    })
+  ).toEqual(2);
 });
