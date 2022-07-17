@@ -60,8 +60,8 @@ const reducer = (grid: Grid, action: Action | null) => {
             column,
             grid,
           });
-          
-          if (neighbours < 2) {
+
+          if (neighbours < 2 || neighbours > 3) {
             newGrid[row][column] = 0;
           }
         }
