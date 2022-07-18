@@ -27,8 +27,8 @@ export const getNeighbours = ({
   let neighbours = 0;
 
   operations.forEach(([x, y]) => {
-    let rows = x + row;
-    let cols = y + column;
+    let rows = (x + row + grid.length) % grid.length;
+    let cols = (y + column + grid.length) % grid.length;
 
     if (rows >= 0 && rows < grid.length && cols >= 0 && cols < grid.length) {
       neighbours += grid[rows][cols];
@@ -53,7 +53,7 @@ const reducer = (grid: Grid, action: Action | null) => {
       return generateGrid(grid.length);
 
     case 'NEXT_GENERATION': {
-      return produce(grid, (nextGrid) => {
+      const nextGrid = produce(grid, (nextGrid) => {
         for (let row = 0; row < grid.length; row++) {
           for (let column = 0; column < grid.length; column++) {
             let neighbours = getNeighbours({ row, column, grid });
@@ -68,6 +68,7 @@ const reducer = (grid: Grid, action: Action | null) => {
           }
         }
       });
+      return nextGrid;
     }
     default:
       throw new Error(`Unhandled action`);

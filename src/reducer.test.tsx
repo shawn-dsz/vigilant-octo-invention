@@ -142,3 +142,29 @@ test('An empty Cell with exactly 3 live neighbours "comes to life"', () => {
     [0, 0, 0, 0, 0, 0],
   ]);
 });
+
+
+test('A Cell who "comes to life" outside the board should wrap at the other side of the board.', () => {
+  expect(
+    reducer(
+      [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 1, 1],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ],
+      {
+        type: 'NEXT_GENERATION',
+      }
+    )
+  ).toEqual([
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1, 0],
+    [1, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0, 0],
+  ]);
+});
