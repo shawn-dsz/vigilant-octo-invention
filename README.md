@@ -8,7 +8,13 @@ Set `GRID_SIZE` in `src/reducer.ts:4` to desired size
 
 ## Getting started
 
-Run the app with `yarn start`
+### Install
+
+Run `npm install`
+
+### Starting the app
+
+Run the app with `npm start`
 
 ## Next generation
 
@@ -20,6 +26,6 @@ Click on the cell to toggle its state.
 
 ## Running test
 
-Run `yarn test`
+Run `npm test`
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
