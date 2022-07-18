@@ -86,31 +86,14 @@ test('A Cell with fewer than two live neighbours dies of under-population.', () 
   ).toEqual([
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0],
+    [0, 1, 0, 1, 0, 0],
     [0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
   ]);
 });
 
 test('A Cell with more than 3 live neighbours dies of overcrowding.', () => {
-  console.log(
-    JSON.stringify(
-      reducer(
-        [
-          [0, 0, 0, 0, 0, 0],
-          [0, 0, 1, 0, 0, 0],
-          [0, 1, 1, 1, 0, 0],
-          [0, 0, 1, 1, 0, 0],
-          [0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0],
-        ],
-        {
-          type: 'NEXT_GENERATION',
-        }
-      )
-    )
-  );
   expect(
     reducer(
       [
@@ -127,10 +110,35 @@ test('A Cell with more than 3 live neighbours dies of overcrowding.', () => {
     )
   ).toEqual([
     [0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0],
+    [0, 1, 1, 1, 0, 0],
+    [0, 1, 0, 0, 0, 0],
+    [0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
+  ]);
+});
+
+test('An empty Cell with exactly 3 live neighbours "comes to life"', () => {
+  expect(
+    reducer(
+      [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 1, 0, 0],
+        [0, 1, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ],
+      {
+        type: 'NEXT_GENERATION',
+      }
+    )
+  ).toEqual([
+    [0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0],
     [0, 1, 0, 1, 0, 0],
     [0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
   ]);
 });

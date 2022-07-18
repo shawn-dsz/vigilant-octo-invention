@@ -1,4 +1,5 @@
 import { Action, Grid } from './types';
+import produce from 'immer';
 
 export const generateGrid = (size = 6): Grid =>
   Array.from({ length: size }, () => Array.from({ length: size }, () => 0));
@@ -44,32 +45,32 @@ const reducer = (grid: Grid, action: Action | null) => {
   switch (action.type) {
     case 'TOGGLE_CELL': {
       const { row, column } = action.payload;
-      const newGrid = [...grid];
-      newGrid[row][column] = grid[row][column] ? 0 : 1;
-      return newGrid;
+      return produce(grid, (nextGrid) => {
+        nextGrid[row][column] = grid[row][column] ? 0 : 1;
+      });
     }
     case 'RESET':
       return generateGrid(grid.length);
 
     case 'NEXT_GENERATION': {
-      const newGrid = [...grid];
-      for (let row = 0; row < grid.length; row++) {
-        for (let column = 0; column < grid.length; column++) {
-          const neighbours = getNeighbours({
-            row,
-            column,
-            grid,
-          });
+      return produce(grid, (nextGrid) => {
+        for (let row = 0; row < grid.length; row++) {
+          for (let column = 0; column < grid.length; column++) {
+            let neighbours = getNeighbours({ row, column, grid });
 
-          if (neighbours < 2 || neighbours > 3) {
-            newGrid[row][column] = 0;
+            if (neighbours < 2 || neighbours > 3) {
+              nextGrid[row][column] = 0;
+            }
+
+            if (neighbours === 3) {
+              nextGrid[row][column] = 1;
+            }
           }
         }
-      }
-      return newGrid;
+      });
     }
     default:
-      throw new Error(`Unhandled action type: ${action}`);
+      throw new Error(`Unhandled action`);
   }
 };
 
