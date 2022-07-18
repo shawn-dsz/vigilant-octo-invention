@@ -19,5 +19,41 @@
 }
 
 .cell:hover {
+  cursor: pointer;
   background-color: #adcbf1;
+}
+
+.grid {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid white;
+  background: #4299e1;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background: #3c8dbc;
+}
+.btn:active {
+  border: 1px solid #3c8dbc;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

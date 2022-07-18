@@ -12,28 +12,35 @@ function App() {
   const reset = () => dispatch({ type: 'RESET' });
 
   return (
-    <>
-      {grid.map((rows: number[], rowIndex: number) => {
-        return (
-          <div className="row" key={rowIndex}>
-            {rows.map((_, columnIndex: number) => {
-              return (
-                <div
-                  onClick={() => toggleCell(rowIndex, columnIndex)}
-                  className={cn('cell', {
-                    alive: grid[rowIndex][columnIndex] === 1,
-                  })}
-                  key={`${rowIndex}-${columnIndex}`}
-                />
-              );
-            })}
-          </div>
-        );
-      })}
-
-      <button onClick={reset}>Reset</button>
-      <button onClick={nextGeneration}>Next generation</button>
-    </>
+    <div className="game">
+      <div className="grid">
+        {grid.map((rows: number[], rowIndex: number) => {
+          return (
+            <div className="row" key={rowIndex}>
+              {rows.map((_, columnIndex: number) => {
+                return (
+                  <div
+                    onClick={() => toggleCell(rowIndex, columnIndex)}
+                    className={cn('cell', {
+                      alive: grid[rowIndex][columnIndex] === 1,
+                    })}
+                    key={`${rowIndex}-${columnIndex}`}
+                  />
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+      <div className="btn-container">
+        <button className="btn" onClick={nextGeneration}>
+          Next generation
+        </button>
+        <button className="btn" onClick={reset}>
+          Reset
+        </button>
+      </div>
+    </div>
   );
 }
 

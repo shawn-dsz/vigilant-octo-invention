@@ -1,7 +1,9 @@
 import { Action, Grid } from './types';
 import produce from 'immer';
 
-export const generateGrid = (size = 6): Grid =>
+const GRID_SIZE = 6;
+
+export const generateGrid = (size = GRID_SIZE): Grid =>
   Array.from({ length: size }, () => Array.from({ length: size }, () => 0));
 
 const operations = [
